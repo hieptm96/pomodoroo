@@ -10,8 +10,8 @@
 }
 
 .plan-left {
-  text-align: right;
-  padding: 10px 10px 10px 0;
+  text-align: center;
+  padding: 20px 10px 10px 0;
 }
 
 .plan-center {
@@ -49,4 +49,42 @@
 .plan-icon {
   width: 12px;
   margin-right: 2px;
+}
+
+
+/*rank board css*/
+.rank-text {
+  font-size: 16px;
+  opacity: 0.4;
+}
+.rank-number {
+  font-size: 24px;
+}
+.rank-left {
+  text-align: center;
+}
+.contact-initials {
+  color: #9E9E9E;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.list__item__center {
+  padding-left: 16px;
+}
+
+
+.animation-swipe-right {
+  pointer-events: none;
+  -webkit-animation: swipe-right .9s ease-in-out forwards;
+          animation: swipe-right .9s ease-in-out forwards;
+}
+
+.animation-swipe-left {
+  pointer-events: none;
+  -webkit-animation: swipe-left .9s ease-in-out forwards;
+          animation: swipe-left .9s ease-in-out forwards;
+}
+.hide-children * {
+  overflow: hidden;
 }
