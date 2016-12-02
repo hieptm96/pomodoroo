@@ -13,10 +13,20 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/circle.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+  <style>
+    ons-toolbar {
+      background: #4CAF50 !important;
+    }
+    ons-tab {
+      background: #4CAF50 !important;
+    }
+  </style>
   <script>
-    ons.bootstrap()
-      .controller('AppController', function($scope) {
+    var module = ons.bootstrap('my-app', ['onsen']);
+    module.controller('AppController', function($scope) {
         this.load = function(page) {
           $scope.splitter.content.load(page);
           $scope.splitter.left.close();
@@ -26,26 +36,26 @@
           $scope.splitter.left.toggle();
         };
       });
-
     ons.ready(function() {
         console.log("Onsen UI is ready!");
     });
   </script>
 </head>
-<body>
+<body ng-controller="AppController as app">
 
-  <ons-splitter ng-controller="AppController as app" var="splitter">
-    <ons-splitter-side side="left" width="220px" collapse swipeable>
+  <ons-splitter var="splitter">
+    <ons-splitter-side side="left" width="290px" collapse swipeable>
       <ons-page>
+        <div style="width: 100%; height: 100px; background: #4CAF50 ;"></div>
         <ons-list>
           <ons-list-item ng-click="app.load('home.html')" tappable>
-            Home
+            <ons-icon icon="ion-ios-home" size="20px" fixed-width="false" style="color: red"></ons-icon> Home
           </ons-list-item>
           <ons-list-item ng-click="app.load('settings.html')" tappable>
-            Settings
+            <ons-icon icon="ion-ios-gear" size="20px" fixed-width="false" style="color: red"></ons-icon> Settings
           </ons-list-item>
           <ons-list-item ng-click="app.load('about.html')" tappable>
-            About
+            <ons-icon icon="ion-android-bar" size="20px" fixed-width="false" style="color: red"></ons-icon> About
           </ons-list-item>
         </ons-list>
       </ons-page>
@@ -66,7 +76,7 @@
         </div>
       </ons-toolbar> -->
       <ons-tabbar var="tabbar" id="tabbar">
-        <ons-tab page="tab_1.html" label="tab_1" icon="ion-ios-calendar" active="true">
+        <ons-tab page="tab_1.html" label="tab_1" icon="ion-ios-list" active="true">
         </ons-tab>
 
         <ons-tab page="tab_2.html" label="tab_2" icon="ion-ios-calendar" persistent>
@@ -81,7 +91,7 @@
   <!-- tab_1.html -->
   <ons-template id="tab_1.html">
     <ons-navigator title="Navigator" var="tab_1.navi">
-        <ons-page>
+        <ons-page id="list_todo" ng-controller="ListTodoController">
           <ons-toolbar>
             <div class="left">
               <ons-toolbar-button ng-click="app.toggle()">
@@ -94,11 +104,11 @@
           <div class="navigation-bar">
             <div class="navigation-bar__center">
               <div class="button-bar" style="width:200px; margin:8px auto 0;">
-                <div class="button-bar__item">
+                <div class="button-bar__item" ng-click="pending = true;">
                   <input type="radio" name="navi-segment-a" checked>
                   <div class="button-bar__button">Pedding</div>
                 </div>
-                <div class="button-bar__item">
+                <div class="button-bar__item" ng-click="pending = false;">
                   <input type="radio" name="navi-segment-a">
                   <div class="button-bar__button">Completed</div>
                 </div>
@@ -107,10 +117,10 @@
           </div>
 
           <ons-list class="plan-list">
-            <ons-list-item modifier="chevron tappable" class="plan" ng-repeat="a in [1,2,3,4,5,6,7,8,9,10]">
-              <ons-row class="test">
-                <ons-col width="50px" class="plan-left">
-                  <div class="plan-date">
+            <ons-list-item ng-if="pending == true" modifier="chevron tappable" class="plan" ng-repeat="a in [1,2,3,4,5,6,7,8,9,10]">
+              <ons-row>
+                <ons-col width="30px" class="plan-left pending-item" ng-click="amination_right($event);">
+                  <div class="plan-date" style="margin-left: -10px">
                     <label class="checkbox">
                       <input type="checkbox" class="checkbox__input">
                       <div class="checkbox__checkmark"></div>
@@ -118,26 +128,59 @@
                   </div>
                 </ons-col>
 
-                <ons-col width="6px" class="plan-center" ng-style="{backgroundColor:a % 3 == 1 ? '#3399ff' : '#ccc'}">
+                <ons-col width="4px" class="plan-center" ng-style="{backgroundColor:a % 3 == 1 ? '#3399ff' : '#ccc'}">
                 </ons-col>
 
-                <ons-col class="plan-right" onclick="tab_1.navi.pushPage('todo_detail.html');">
-                  <div class="plan-name">New Pomo todo</div>
+                <ons-col class="plan-right" onclick="tab_1.navi.pushPage('pomo_timer.html');">
+                  <div class="plan-name">Pending Pomo todo</div>
 
                   <div class="plan-info">
-                    <div ng-hide="a % 4 == 0">
-                      <ons-icon class="plan-icon" icon="fa-phone"></ons-icon>123-456-789
-                    </div>
-
                     <div ng-hide="a % 3 == 0">
-                      <ons-icon class="plan-icon" icon="fa-map-marker"></ons-icon>Moscone, San Francisco
+                      <ons-icon class="plan-icon" icon="ion-ios-alarm"></ons-icon>2:20, Tuesday
                     </div>
                   </div>
+                </ons-col>
+                <ons-col width="35px" onclick="tab_1.navi.pushPage('todo_detail.html');">
+                  <ons-icon icon="ion-ios-compose" size="20px" fixed-width="false" style="color: #ff9966"></ons-icon>
+                </ons-col>
+                <ons-col width="35px" ng-click="confirm(true)" modifier="tappable">
+                  <ons-icon icon="ion-ios-trash" size="20px" fixed-width="false" style="color: #ff9966"></ons-icon>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
+
+            <ons-list-item ng-if="pending == false" modifier="chevron tappable" class="plan" ng-repeat="a in [1,2,3]">
+              <ons-row>
+                <ons-col width="30px" class="plan-left">
+                  <div class="plan-date" style="margin-left: -10px">
+                    <label class="checkbox">
+                      <input type="checkbox" class="checkbox__input" checked>
+                      <div class="checkbox__checkmark"></div>
+                    </label>
+                  </div>
+                </ons-col>
+
+                <ons-col width="4px" class="plan-center" ng-style="{backgroundColor:a % 3 == 1 ? '#3399ff' : '#ccc'}">
+                </ons-col>
+
+                <ons-col class="plan-right" onclick="tab_1.navi.pushPage('pomo_timer.html');">
+                  <div class="plan-name">Completed </div>
+
+                  <div class="plan-info">
+                    <div ng-hide="a % 3 == 0">
+                      <ons-icon class="plan-icon" icon="ion-ios-alarm"></ons-icon>2:20, Tuesday
+                    </div>
+                  </div>
+                </ons-col>
+                <ons-col width="35px" onclick="tab_1.navi.pushPage('todo_detail.html');">
+                  <ons-icon icon="ion-ios-compose" size="20px" fixed-width="false" style="color: #ff9966"></ons-icon>
+                </ons-col>
+                <ons-col width="35px" ng-click="confirm(true)" modifier="tappable">
+                  <ons-icon icon="ion-ios-trash" size="20px" fixed-width="false" style="color: #ff9966"></ons-icon>
                 </ons-col>
               </ons-row>
             </ons-list-item>
           </ons-list>
-
           <ons-fab position="right bottom" onclick="tab_1.navi.pushPage('new_todo.html');">
             <ons-ripple></ons-ripple>
             <ons-icon icon="md-edit"></ons-icon>
@@ -149,7 +192,7 @@
   <!-- end tab_1.html -->
   <!-- new_todo.html -->
   <ons-template id="new_todo.html">
-    <ons-page>
+    <ons-page id="new_todo" ng-controller="ListTodoController">
       <ons-toolbar>
         <div class="left">
           <ons-toolbar-button ng-click="tab_1.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
@@ -202,7 +245,7 @@
   <!-- end new_todo.html -->
   <!-- todo_detail.html -->
   <ons-template id="todo_detail.html">
-    <ons-page>
+    <ons-page id="todo_detail" ng-controller="ListTodoController">
       <ons-toolbar>
         <div class="left">
           <ons-toolbar-button ng-click="tab_1.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
@@ -253,6 +296,30 @@
     </ons-page>
   </ons-template>
   <!-- end todo_detail.html -->
+  <!-- pomo_timer.html -->
+  <ons-template id="pomo_timer.html">
+    <ons-page id="pomo_timer" ng-controller="ListTodoController">
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button ng-click="tab_1.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
+        </div>
+        <div class="center">Pomo Timer</div>
+      </ons-toolbar>
+      <div id="timer-count">
+        <div>
+        <div class="c100 p0 big green">
+            <span><span class="minute">25</span> : <span class="second">00</span></span>
+            <div class="slice">
+                <div class="bar"></div>
+                <div class="fill"></div>
+            </div>
+        </div>
+        </div>
+      </div>
+      <button class="button" id="start_timer" ng-click="timer()">Button</button>
+    </ons-page>
+  </ons-template>
+  <!-- end pomo_timer.html -->
   <!-- tab_2.html -->
   <ons-template id="tab_2.html">
     <ons-navigator title="Navigator" var="tab_2.navi">
@@ -323,28 +390,32 @@
         </div>
       </ons-toolbar>
       <ons-list class="plan-list">
-        <ons-list-item modifier="chevron tappable" class="plan" ng-repeat="a in [1,2,3,4,5,6,7,8,9,10]">
+        <ons-list-item modifier="chevron tappable" class="plan" ng-repeat="a in [1,2,3,4,5,6,7,8,9,10]" style="border-bottom: 1px solid #e6e6e6;">
           <ons-row>
-            <ons-col width="50px" class="rank-left">
-              <div class="rank-text">Rank</div>
-              <div class="rank-number">{{a}}</div>
+            <ons-col width="50px" class="rank-left" style="margin-left: -20px; margin-right: 5px; padding-top: 10px;">
+              <div class="rank-text" style="margin-bottom: 5px;">Rank</div>
+              <div class="rank-number" style="color: green">{{a}}</div>
             </ons-col>
-            <ons-col width="6px" class="plan-center" ng-style="{backgroundColor:a % 3 == 1 ? '#3399ff' : '#ccc'}">
+            <ons-col width="4px" class="plan-center" ng-style="{backgroundColor:a % 3 == 1 ? '#3399ff' : '#3399ff'}" style="margin-right: 10px;">
               </ons-col>
-            <ons-col width="40px">
-              <img ng-src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQxhqoJgjgnrQhAlLUzDT_MgvnCphfV1yDtpaZMvpZ3i6753xhdBg" class="list__item__thumbnail">
+            <ons-col width="40px" style="padding-top: 10px;">
+              <img ng-show="a % 3 == 1" ng-src="image/rank-1.jpg" class="list__item__thumbnail">
+              <img ng-show="a % 3 == 2" ng-src="image/rank-2.jpg" class="list__item__thumbnail">
+              <img ng-show="a % 3 == 0" ng-src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTGirXalG-Nx5gOvy51lH5hgc1k2kXIHu4FvgrX02Nx7vISXucE" class="list__item__thumbnail">
             </ons-col>
             <ons-col class="plan-right">
 
               <div class="plan-name">Ann Taylor</div>
 
               <div class="plan-info">
-                <div ng-hide="a % 4 == 0">
-                  <ons-icon class="plan-icon" icon="fa-phone"></ons-icon>123-456-789
+                <div ng-show="a % 3 == 1">
+                  <ons-icon class="plan-icon" icon="fa-map-marker"></ons-icon>Hà Nội
                 </div>
-
-                <div ng-hide="a % 3 == 0">
-                  <ons-icon class="plan-icon" icon="fa-map-marker"></ons-icon>Moscone, San Francisco
+                <div ng-show="a % 3 == 2">
+                  <ons-icon class="plan-icon" icon="fa-map-marker"></ons-icon>Thái Bình
+                </div>
+                <div ng-show="a % 3 == 0">
+                  <ons-icon class="plan-icon" icon="fa-map-marker"></ons-icon>Hải Dương
                 </div>
               </div>
             </ons-col>
@@ -366,5 +437,9 @@
       </ons-list> -->
     </ons-page>
   </ons-template>
+
+  <script src="js/controllers/ListTodoController.js"></script>
+  <!-- <script src="js/controllers/NewTodoController.js"></script> -->
+  <!-- <script src="js/controllers/TodoDetailController.js"></script> -->
 </body>
 </html>

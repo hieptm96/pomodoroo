@@ -10,8 +10,8 @@
 }
 
 .plan-left {
-  text-align: center;
-  padding: 20px 10px 10px 0;
+  text-align: left;
+  padding: 20px 0px 0px 0;
 }
 
 .plan-center {
@@ -41,8 +41,8 @@
 }
 
 .plan-info {
-  opacity: 0.4;
-  font-size: 12px;
+  opacity: 0.5;
+  font-size: 13px;
   line-height: 1.4;
 }
 
@@ -85,6 +85,21 @@
   -webkit-animation: swipe-left .9s ease-in-out forwards;
           animation: swipe-left .9s ease-in-out forwards;
 }
-.hide-children * {
+.hide-children {
   overflow: hidden;
+}
+.hide {
+  display: none;
+}
+
+/*css for timer countdown*/
+#timer-count {
+  height: 240px;
+  padding-left: calc((100% - 240px)/2);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: #ffe6b3;
+}
+.c100{
+  background-color: #ffcc66 !important;
 }
