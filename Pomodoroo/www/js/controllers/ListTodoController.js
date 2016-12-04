@@ -4,7 +4,7 @@ module.controller('ListTodoController', function($scope, $rootScope) {
   });
   $scope.pending = true;
 
-  $scope.confirm = function(material) {
+  $scope.confirm = function(material,dlg) {
     var mod = material ? 'material' : undefined;
     ons.notification.confirm({
       message: 'Are you sure you want to delete?',
@@ -22,6 +22,7 @@ module.controller('ListTodoController', function($scope, $rootScope) {
               message: 'You have been deleted.',
               modifier: mod
             });
+            $scope.dialogs[dlg].hide();
             break;
         }
       }
@@ -33,11 +34,13 @@ module.controller('ListTodoController', function($scope, $rootScope) {
     angular.element($event.target).addClass('animation-swipe-right');
   }
 
+  $scope.start = true;
   $scope.timer = function(){
+    $scope.start = false;
     var second_down = 60;
     var progress = 0;
     var minute_down = 24;
-    setInterval(function(){
+    $scope.time_down = setInterval(function(){
         second_down--;
         if(second_down == 0){
           minute_down--;
@@ -54,5 +57,21 @@ module.controller('ListTodoController', function($scope, $rootScope) {
           $('.second').parent().parent().removeClass('p' +(progress/15 -1)).addClass('p'+progress/15);
         }
     },1000);
+  }
+
+  $scope.dialogs = {};
+
+  $scope.show = function(dlg) {
+    if (!$scope.dialogs[dlg]) {
+      ons.createDialog(dlg, {parentScope: $scope}).then(function(dialog) {
+        $scope.dialogs[dlg] = dialog;
+        dialog.show();
+      });
+    } else {
+      $scope.dialogs[dlg].show();
+    }
+  }
+  $scope.hide = function(dlg){
+    $scope.dialogs[dlg].hide();
   }
 });

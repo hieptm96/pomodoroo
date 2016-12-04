@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/circle.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
 
   <style>
     ons-toolbar {
@@ -23,6 +23,7 @@
     ons-tab {
       background: #4CAF50 !important;
     }
+    ons-fab {background: #4CAF50 !important;}
   </style>
   <script>
     var module = ons.bootstrap('my-app', ['onsen']);
@@ -42,20 +43,45 @@
   </script>
 </head>
 <body ng-controller="AppController as app">
-
+  <!-- <div ons-loading-placeholder="start.html">
+     Loading My Application...
+  </div>
+  <ons-template id="start.html">
+    <div>Welcome to my app!</div>
+  </ons-template> -->
   <ons-splitter var="splitter">
-    <ons-splitter-side side="left" width="290px" collapse swipeable>
+    <ons-splitter-side side="left" width="270px" collapse swipeable>
       <ons-page>
-        <div style="width: 100%; height: 100px; background: #4CAF50 ;"></div>
+      <!-- #4CAF50 -->
+        <div style="width: 100%; background-image: url('image/background_menu.jpg')  ;padding-left: 20px; padding-bottom: 5px;">
+          <ons-col width="60px" style="padding-top: 10px;">
+            <img ng-src="image/rank-2.jpg" class="list__item__thumbnail" style="margin: 8px 0 13px 0">
+          </ons-col>
+          <div style="color: #fff;">To Hiep</div>
+          <div style="color: #fff; margin: 5px 0">hiep1996tb@gmail.com</div>
+        </div>
         <ons-list>
-          <ons-list-item ng-click="app.load('home.html')" tappable>
-            <ons-icon icon="ion-ios-home" size="20px" fixed-width="false" style="color: red"></ons-icon> Home
+          <ons-list-header modifier="material" class="list__header list__header--material" _compiled="">General</ons-list-header>
+          <ons-list-item ng-click="app.load('home.html')" tappable style="padding-left: 0;">
+            <ons-icon icon="ion-ios-home-outline" size="20px" fixed-width="false" style="margin-right: 8px;"></ons-icon> Home
           </ons-list-item>
-          <ons-list-item ng-click="app.load('settings.html')" tappable>
-            <ons-icon icon="ion-ios-gear" size="20px" fixed-width="false" style="color: red"></ons-icon> Settings
+          <ons-list-item ng-click="app.load('settings.html')" tappable style="padding-left: 0;">
+            <ons-icon icon="ion-ios-gear-outline" size="20px" fixed-width="false" style="margin-right: 8px;"></ons-icon> Settings
           </ons-list-item>
-          <ons-list-item ng-click="app.load('about.html')" tappable>
-            <ons-icon icon="ion-android-bar" size="20px" fixed-width="false" style="color: red"></ons-icon> About
+          <ons-list-item ng-click="app.load('about.html')" tappable style="padding-left: 0;">
+            <ons-icon icon="ion-trophy" size="20px" fixed-width="false" style="margin-right: 8px;"></ons-icon> Rank Board
+          </ons-list-item>
+        </ons-list>
+        <ons-list>
+          <ons-list-header modifier="material" class="list__header list__header--material" _compiled="">Info</ons-list-header>
+          <ons-list-item ng-click="app.load('login.html')" tappable style="padding-left: 0;">
+            <ons-icon icon="ion-ios-loop" size="20px" fixed-width="false" style="margin-right: 8px;"></ons-icon> Log In
+          </ons-list-item>
+          <ons-list-item ng-click="app.load('signup.html')" tappable style="padding-left: 0;">
+            <ons-icon icon="ion-ios-personadd-outline" size="20px" fixed-width="false" style="margin-right: 8px;"></ons-icon> Sign Up
+          </ons-list-item>
+          <ons-list-item ng-click="app.load('profile.html')" tappable style="padding-left: 0;">
+            <ons-icon icon="ion-ios-person-outline" size="20px" fixed-width="false" style="margin-right: 8px;"></ons-icon> Profile
           </ons-list-item>
         </ons-list>
       </ons-page>
@@ -64,43 +90,45 @@
   </ons-splitter>
 
   <ons-template id="home.html">
-    <ons-page>
-      <!-- <ons-toolbar>
-        <div class="left">
-          <ons-toolbar-button ng-click="app.toggle()">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-        <div class="center">
-          Main
-        </div>
-      </ons-toolbar> -->
-      <ons-tabbar var="tabbar" id="tabbar">
-        <ons-tab page="tab_1.html" label="tab_1" icon="ion-ios-list" active="true">
-        </ons-tab>
+    <ons-navigator title="Navigator" var="home.navi">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button ng-click="app.toggle()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Home
+          </div>
+        </ons-toolbar>
+        <ons-tabbar var="tabbar" id="tabbar" position="top" modifier="material" animation="slide">
+          <ons-tab page="tab_1.html" label="To do" icon="ion-ios-list" active="true">
+          </ons-tab>
 
-        <ons-tab page="tab_2.html" label="tab_2" icon="ion-ios-calendar" persistent>
-        </ons-tab>
+          <ons-tab page="tab_2.html" label="Statistic" icon="ion-stats-bars" persistent>
+          </ons-tab>
 
-        <ons-tab page="tab_3.html" label="tab_3" icon="ion-ios-calendar" persistent>
-        </ons-tab>
-      </ons-tabbar>
-    </ons-page>
+          <ons-tab page="tab_3.html" label="History" icon="ion-clock" persistent>
+          </ons-tab>
+        </ons-tabbar>
+
+      </ons-page>
+    </ons-navigator>
   </ons-template>
 
   <!-- tab_1.html -->
   <ons-template id="tab_1.html">
     <ons-navigator title="Navigator" var="tab_1.navi">
         <ons-page id="list_todo" ng-controller="ListTodoController">
-          <ons-toolbar>
+          <!-- <ons-toolbar>
             <div class="left">
               <ons-toolbar-button ng-click="app.toggle()">
-                  <!-- <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon> -->
                   <ons-icon icon="md-menu"></ons-icon>
               </ons-toolbar-button>
             </div>
             <div class="center"><strong>tab_1</strong></div>
-          </ons-toolbar>
+          </ons-toolbar> -->
           <div class="navigation-bar">
             <div class="navigation-bar__center">
               <div class="button-bar" style="width:200px; margin:8px auto 0;">
@@ -119,69 +147,52 @@
           <ons-list class="plan-list">
             <ons-list-item ng-if="pending == true" modifier="chevron tappable" class="plan" ng-repeat="a in [1,2,3,4,5,6,7,8,9,10]">
               <ons-row>
-                <ons-col width="30px" class="plan-left pending-item" ng-click="amination_right($event);">
+                <ons-col width="10px" class="plan-left pending-item" ng-click="amination_right($event);">
                   <div class="plan-date" style="margin-left: -10px">
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <div class="checkbox__checkmark"></div>
-                    </label>
+                    <span style="font-size: 20px;">{{a}}</span>
                   </div>
                 </ons-col>
 
-                <ons-col width="4px" class="plan-center" ng-style="{backgroundColor:a % 3 == 1 ? '#3399ff' : '#ccc'}">
-                </ons-col>
-
-                <ons-col class="plan-right" onclick="tab_1.navi.pushPage('pomo_timer.html');">
+                <ons-col class="plan-right" onclick="home.navi.pushPage('pomo_timer.html',{ animation : 'slide' });">
                   <div class="plan-name">Pending Pomo todo</div>
 
                   <div class="plan-info">
-                    <div ng-hide="a % 3 == 0">
+                    <div>
                       <ons-icon class="plan-icon" icon="ion-ios-alarm"></ons-icon>2:20, Tuesday
                     </div>
                   </div>
                 </ons-col>
-                <ons-col width="35px" onclick="tab_1.navi.pushPage('todo_detail.html');">
-                  <ons-icon icon="ion-ios-compose" size="20px" fixed-width="false" style="color: #ff9966"></ons-icon>
-                </ons-col>
-                <ons-col width="35px" ng-click="confirm(true)" modifier="tappable">
-                  <ons-icon icon="ion-ios-trash" size="20px" fixed-width="false" style="color: #ff9966"></ons-icon>
+
+                <ons-col width="40px" ng-click="show('todo_option.html')" modifier="tappable" style="padding-top: 15px;">
+                  <ons-icon icon="md-more-vert" size="30px" fixed-width="false" style="color: #ff9966"></ons-icon>
                 </ons-col>
               </ons-row>
             </ons-list-item>
 
             <ons-list-item ng-if="pending == false" modifier="chevron tappable" class="plan" ng-repeat="a in [1,2,3]">
               <ons-row>
-                <ons-col width="30px" class="plan-left">
+                <ons-col width="10px" class="plan-left pending-item" ng-click="amination_right($event);">
                   <div class="plan-date" style="margin-left: -10px">
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input" checked>
-                      <div class="checkbox__checkmark"></div>
-                    </label>
+                    <span style="font-size: 20px;">{{a}}</span>
                   </div>
                 </ons-col>
 
-                <ons-col width="4px" class="plan-center" ng-style="{backgroundColor:a % 3 == 1 ? '#3399ff' : '#ccc'}">
-                </ons-col>
-
-                <ons-col class="plan-right" onclick="tab_1.navi.pushPage('pomo_timer.html');">
+                <ons-col class="plan-right" onclick="home.navi.pushPage('pomo_timer.html');">
                   <div class="plan-name">Completed </div>
 
                   <div class="plan-info">
-                    <div ng-hide="a % 3 == 0">
+                    <div>
                       <ons-icon class="plan-icon" icon="ion-ios-alarm"></ons-icon>2:20, Tuesday
                     </div>
                   </div>
                 </ons-col>
-                <ons-col width="35px" onclick="tab_1.navi.pushPage('todo_detail.html');">
-                  <ons-icon icon="ion-ios-compose" size="20px" fixed-width="false" style="color: #ff9966"></ons-icon>
-                </ons-col>
-                <ons-col width="35px" ng-click="confirm(true)" modifier="tappable">
-                  <ons-icon icon="ion-ios-trash" size="20px" fixed-width="false" style="color: #ff9966"></ons-icon>
+                <ons-col width="40px" ng-click="show('todo_option.html')" modifier="tappable" style="padding-top:15px;">
+                  <ons-icon icon="md-more-vert" size="30px" fixed-width="false" style="color: #ff9966"></ons-icon>
                 </ons-col>
               </ons-row>
             </ons-list-item>
           </ons-list>
-          <ons-fab position="right bottom" onclick="tab_1.navi.pushPage('new_todo.html');">
+          <ons-fab position="right bottom" onclick="home.navi.pushPage('new_todo.html');">
             <ons-ripple></ons-ripple>
             <ons-icon icon="md-edit"></ons-icon>
           </ons-fab>
@@ -190,12 +201,39 @@
     </ons-navigator>
   </ons-template>
   <!-- end tab_1.html -->
+  <!-- todo_option.html -->
+  <ons-template id="todo_option.html">
+    <ons-page ng-controller="ListTodoController">
+      <ons-dialog var="dialog" modifier="material" cancelable>
+        <ons-list>
+          <ons-list-item modifier="tappable" ng-click="hide('todo_option.html')" onclick="home.navi.pushPage('todo_detail.html');">
+            <div class="plan-name">Pending Pomo todo</div>
+            <div class="plan-info">
+              <div>
+                <ons-icon class="plan-icon" icon="ion-ios-alarm"></ons-icon>2:20, Tuesday
+              </div>
+            </div>
+          </ons-list-item>
+          <ons-list-item modifier="tappable" ng-click="hide('todo_option.html')" onclick="home.navi.pushPage('todo_detail.html');">
+            <ons-icon icon="ion-ios-compose" size="25px" fixed-width="false" style="color: #ff9966; margin-right: 10px;margin-left: -10px"></ons-icon>Update
+          </ons-list-item>
+          <ons-list-item modifier="tappable">
+            <ons-icon icon="ion-happy-outline" size="25px" fixed-width="false" style="color: black; margin-right: 10px;margin-left: -10px"></ons-icon>Completed
+          </ons-list-item>
+          <ons-list-item modifier="tappable" ng-click="confirm(true,'todo_option.html')" >
+            <ons-icon icon="ion-ios-trash" size="25px" fixed-width="false" style="color: #ff9966; margin-right: 10px;margin-left: -10px"></ons-icon>Delete
+          </ons-list-item>
+        </ons-list>
+      </ons-dialog>
+    </ons-page>
+  </ons-template>
+  <!-- end todo_option.html -->
   <!-- new_todo.html -->
   <ons-template id="new_todo.html">
     <ons-page id="new_todo" ng-controller="ListTodoController">
       <ons-toolbar>
         <div class="left">
-          <ons-toolbar-button ng-click="tab_1.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
+          <ons-toolbar-button ng-click="home.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
         </div>
         <div class="center">New Pomo</div>
         <div class="right">
@@ -248,7 +286,7 @@
     <ons-page id="todo_detail" ng-controller="ListTodoController">
       <ons-toolbar>
         <div class="left">
-          <ons-toolbar-button ng-click="tab_1.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
+          <ons-toolbar-button ng-click="home.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
         </div>
         <div class="center">New Pomo</div>
         <div class="right">
@@ -301,22 +339,41 @@
     <ons-page id="pomo_timer" ng-controller="ListTodoController">
       <ons-toolbar>
         <div class="left">
-          <ons-toolbar-button ng-click="tab_1.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
+          <ons-toolbar-button ng-click="home.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
         </div>
         <div class="center">Pomo Timer</div>
       </ons-toolbar>
       <div id="timer-count">
         <div>
-        <div class="c100 p0 big green">
-            <span><span class="minute">25</span> : <span class="second">00</span></span>
-            <div class="slice">
-                <div class="bar"></div>
-                <div class="fill"></div>
-            </div>
-        </div>
+          <div class="c100 p0 big green">
+              <span><span class="minute">25</span> : <span class="second">00</span></span>
+              <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+              </div>
+          </div>
         </div>
       </div>
-      <button class="button" id="start_timer" ng-click="timer()">Button</button>
+      <div><button  class="button" id="start_timer" ng-click="timer()" style="display:block; width:80%; margin:0 auto; margin-bottom: 10px">Start</button></div>
+      <ons-list>
+        <!-- <ons-list-header>Add a new Pomo</ons-list-header> -->
+        <ons-list-item modifier="nodivider">
+          <div class="center">
+            <ons-input id="title-input" type="text" placeholder="I want to..." float value="aaa"></ons-input>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider">
+          <div class="center">
+            <ons-input id="category-input" type="text" placeholder="Category" float value="aaa"></ons-input>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider">
+          <div class="center">
+            <ons-input id="description-input" type="text" placeholder="Note" float value="aaa"></ons-input>
+          </div>
+        </ons-list-item>
+      </ons-list>
+
     </ons-page>
   </ons-template>
   <!-- end pomo_timer.html -->
@@ -324,33 +381,144 @@
   <ons-template id="tab_2.html">
     <ons-navigator title="Navigator" var="tab_2.navi">
         <ons-page>
-          <ons-toolbar>
-            <div class="left">
-              <ons-toolbar-button ng-click="app.toggle()">
-                  <!-- <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon> -->
-                  <ons-icon icon="md-menu"></ons-icon>
-              </ons-toolbar-button>
-            </div>
-            <div class="center"><strong>tab_2</strong></div>
-          </ons-toolbar>
+          <img src="image/graph.png" alt="" style="width: 100%; margin-top: 10px;">
+          <ons-list class="timeline" modifier="inset">
+            <ons-list-header modifier="material" class="list__header list__header--material" _compiled="" style="font-weight: bold;">STATISTIC</ons-list-header>
+            <ons-list-item class="timeline-li" modifier="tappable">
+              <ons-row>
+                <ons-col width="30px">
+                  <ons-icon icon="ion-ios-information-outline"></ons-icon>
+                </ons-col>
+                <ons-col>
+                  <div class="timeline-message">
+                    15 Todo total
+                  </div>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
+            <ons-list-item class="timeline-li" modifier="tappable">
+              <ons-row>
+                <ons-col width="30px">
+                  <ons-icon icon="ion-ios-information-outline"></ons-icon>
+                </ons-col>
+                <ons-col>
+                  <div class="timeline-message">
+                    10 Pomo completed
+                  </div>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
+          </ons-list>
+          <ons-list class="timeline" modifier="inset">
+            <ons-list-header modifier="material" class="list__header list__header--material" _compiled="" style="font-weight: bold;">BEST WORK</ons-list-header>
+            <ons-list-item class="timeline-li" modifier="tappable">
+              <ons-row>
+                <ons-col width="30px">
+                  <ons-icon icon="ion-ios-information-outline"></ons-icon>
+                </ons-col>
+                <ons-col>
+                  <div class="timeline-message">
+                    Best workday : Friday
+                  </div>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
+            <ons-list-item class="timeline-li" modifier="tappable">
+              <ons-row>
+                <ons-col width="30px">
+                  <ons-icon icon="ion-ios-information-outline"></ons-icon>
+                </ons-col>
+                <ons-col>
+                  <div class="timeline-message">
+                    Best worktime : 8h-10h
+                  </div>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
 
+          </ons-list>
         </ons-page>
     </ons-navigator>
   </ons-template>
   <!-- end tab_2.html -->
   <!-- tab_3.html -->
-  <ons-template id="tab_3.html">
+  <ons-template id="tab_3.html" style="background: yellow !important">
     <ons-navigator title="Navigator" var="tab_3.navi">
-        <ons-page>
-          <ons-toolbar>
-            <div class="left">
-              <ons-toolbar-button ng-click="app.toggle()">
-                  <!-- <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon> -->
-                  <ons-icon icon="md-menu"></ons-icon>
-              </ons-toolbar-button>
-            </div>
-            <div class="center"><strong>tab_3</strong></div>
-          </ons-toolbar>
+        <ons-page id="history">
+          <ons-list class="timeline" modifier="inset">
+            <ons-list-header modifier="material" class="list__header list__header--material" _compiled="">TODAY SATURDAY, 02 DECEMBER</ons-list-header>
+            <ons-list-item class="timeline-li" modifier="tappable" ng-repeat="i in [1,2,3]">
+              <ons-row>
+                <ons-col width="30px">
+                  <label class="checkbox--noborder">
+                    <input type="checkbox" class="checkbox__input checkbox--noborder__input" checked="checked">
+                    <div class="checkbox__checkmark checkbox--noborder__checkmark"></div>
+                  </label>
+                </ons-col>
+                <ons-col>
+                  <div class="timeline-message">
+                    Pomo todo one
+                  </div>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
+          </ons-list>
+          <ons-list class="timeline" modifier="inset">
+            <ons-list-header modifier="material" class="list__header list__header--material" _compiled="">FRIDAY, 01 DECEMBER</ons-list-header>
+            <ons-row style="background: #fff;">
+              <ons-col>
+                <div class="timeline-message" style="text-align: center;">
+                  <p>No data</p>
+                </div>
+              </ons-col>
+            </ons-row>
+          </ons-list>
+          <ons-list class="timeline" modifier="inset">
+            <ons-list-header modifier="material" class="list__header list__header--material" _compiled="">THURSDAY, 30 NOVEMBER</ons-list-header>
+            <ons-list-item class="timeline-li" modifier="tappable">
+              <ons-row>
+                <ons-col width="30px">
+                  <label class="checkbox--noborder">
+                    <input type="checkbox" class="checkbox__input checkbox--noborder__input" checked="checked">
+                    <div class="checkbox__checkmark checkbox--noborder__checkmark"></div>
+                  </label>
+                </ons-col>
+                <ons-col>
+                  <div class="timeline-message">
+                    Pomo todo two
+                  </div>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
+          </ons-list>
+          <ons-list class="timeline" modifier="inset">
+            <ons-list-header modifier="material" class="list__header list__header--material" _compiled="">WENDSDAY, 29 NOVEMBER</ons-list-header>
+            <ons-list-item class="timeline-li" modifier="tappable">
+              <ons-row>
+                <ons-col width="30px">
+                  <label class="checkbox--noborder">
+                    <input type="checkbox" class="checkbox__input checkbox--noborder__input" checked="checked">
+                    <div class="checkbox__checkmark checkbox--noborder__checkmark"></div>
+                  </label>
+                </ons-col>
+                <ons-col>
+                  <div class="timeline-message">
+                    Pomo todo three
+                  </div>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
+          </ons-list>
+          <ons-list class="timeline" modifier="inset">
+            <ons-list-header modifier="material" class="list__header list__header--material" _compiled="">TUESDAY, 28 DECEMBER</ons-list-header>
+            <ons-row style="background: #fff;">
+              <ons-col>
+                <div class="timeline-message" style="text-align: center;">
+                  <p>No data</p>
+                </div>
+              </ons-col>
+            </ons-row>
+          </ons-list>
 
         </ons-page>
     </ons-navigator>
@@ -361,21 +529,101 @@
 
 
 
-
+  <!-- setting.html -->
   <ons-template id="settings.html">
-    <ons-page>
+    <ons-navigator title="Navigator" var="setting.navi">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button ng-click="app.toggle()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Settings
+          </div>
+        </ons-toolbar>
+        <ons-list class="timeline" modifier="inset">
+          <ons-list-header modifier="material" class="list__header list__header--material" _compiled="" style="color: #996600; font-weight: bold;">POMO</ons-list-header>
+          <ons-list-item class="timeline-li" modifier="tappable" onclick="setting.navi.pushPage('setting_duration.html')">
+            <ons-row>
+              <ons-col>
+                <div class="timeline-message">
+                  Duration
+                </div>
+              </ons-col>
+            </ons-row>
+          </ons-list-item>
+          <ons-list-item class="timeline-li" modifier="tappable">
+            <ons-row>
+              <ons-col>
+                <div class="timeline-message">
+                  Goal
+                </div>
+              </ons-col>
+            </ons-row>
+          </ons-list-item>
+          <ons-list-item modifier="nodivider">
+            <label class="center timeline-message" for="inner-highlight-input">
+              Sound
+            </label>
+            <label class="right">
+              <ons-switch id="highlight-input" input-id="inner-highlight-input"></ons-switch>
+            </label>
+          </ons-list-item>
+          <ons-list-item modifier="nodivider">
+            <label class="center timeline-message" for="inner-highlight-input">
+              Update
+            </label>
+            <label class="right">
+              <ons-switch id="highlight-input" input-id="inner-highlight-input"></ons-switch>
+            </label>
+          </ons-list-item>
+        </ons-list>
+        <ons-list class="timeline" modifier="inset">
+          <ons-list-header modifier="material" class="list__header list__header--material" _compiled="" style="color: #996600; font-weight: bold;">SOUND</ons-list-header>
+          <ons-list-item modifier="nodivider">
+            <label class="center timeline-message" for="inner-highlight-input">
+              Public Email
+            </label>
+            <label class="right">
+              <ons-switch id="highlight-input" input-id="inner-highlight-input"></ons-switch>
+            </label>
+          </ons-list-item>
+          <ons-list-item modifier="nodivider">
+            <label class="center timeline-message" for="inner-highlight-input">
+              Public Activity
+            </label>
+            <label class="right">
+              <ons-switch id="highlight-input" input-id="inner-highlight-input"></ons-switch>
+            </label>
+          </ons-list-item>
+        </ons-list>
+
+      </ons-page>
+    </ons-navigator>
+  </ons-template>
+  <!-- end setting.html -->
+  <ons-template id="setting_duration.html">
+    <ons-page id="setting_duration" ng-controller="ListTodoController">
       <ons-toolbar>
         <div class="left">
-          <ons-toolbar-button ng-click="app.toggle()">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
+          <ons-toolbar-button ng-click="setting.navi.popPage();"><ons-icon icon="ion-arrow-left-c"></ons-icon></ons-toolbar-button>
         </div>
-        <div class="center">
-          Settings
-        </div>
+        <div class="center">Setting Duration</div>
       </ons-toolbar>
+      <ons-list>
+        <ons-list-item>
+          <div class="list__item__center">
+            <input type="range" value="0" class="range">
+          </div>
+          <div class="list__item__right">
+            25 minutes
+          </div>
+        </ons-list-item>
     </ons-page>
   </ons-template>
+
 
   <ons-template id="about.html">
     <ons-page>
@@ -437,6 +685,121 @@
       </ons-list> -->
     </ons-page>
   </ons-template>
+
+  <!-- login.html -->
+  <ons-template id="login.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Log In</div>
+        <div class="right" ng-click="app.load('home.html')"><ons-toolbar-button>Close</ons-toolbar-button></div>
+      </ons-toolbar>
+
+      <div class="login-form">
+
+        <input type="email" class="text-input--underbar" placeholder="Email" value="">
+        <input type="password" class="text-input--underbar" placeholder="Password" value="">
+        <br><br>
+        <ons-button modifier="large" class="login-button" style="background: #4CAF50">Log In</ons-button>
+        <br><br>
+        <ons-button modifier="quiet" class="forgot-password" style="color: #4CAF50">Forgot password?</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+  <!-- end login.html -->
+
+  <!-- signup.html -->
+  <ons-template id="signup.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left" ng-click="app.load('home.html')"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Sign up</div>
+      </ons-toolbar>
+
+      <div class="formarea">
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-half" placeholder="First" value="">
+          <input type="text" class="text-input--underbar width-half" placeholder="Last" value="" style="border-width-left: 1px">
+        </div>
+
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Email" value="">
+        </div>
+
+        <div class="form-row">
+          <input type="password" class="text-input--underbar width-full" placeholder="Password" value="">
+        </div>
+
+        <div class="lucent">
+          <p class="note">Password - 6 characters or more</p>
+        </div>
+
+        <div class="vspc form-row">
+          <ons-button modifier="large--cta" style="background: #4CAF50">Sign up</ons-button>
+        </div>
+      </div>
+
+    </ons-page>
+  </ons-template>
+  <!-- end signup.html -->
+
+  <!-- profile.html -->
+  <ons-template id="profile.html">
+    <ons-page modifier="shop-details">
+        <ons-toolbar modifier="transparent">
+          <div class="left" ng-click="app.load('home.html')">
+            <ons-toolbar-button><ons-icon icon="ion-arrow-left-c" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button>
+          </div>
+        </ons-toolbar>
+
+        <div class="card">
+
+          <div class="card-name">hieptm96</div>
+          <div class="card-desc">hiep1996tb@gmail.com<br>Thái Bình</div>
+
+        </div>
+
+        <ons-list style="border-top: none"><ons-list-item style="line-height: 1; padding: 0;">
+          <ons-row class="action">
+            <ons-col class="action-col">
+              <div class="action-icon"><ons-icon icon="ion-ios-gear-outline"></ons-icon></div>
+              <div class="action-label">Setting</div>
+            </ons-col>
+
+            <ons-col class="action-col">
+              <div class="action-icon"><ons-icon icon="ion-ios-compose-outline"></ons-icon></div>
+              <div class="action-label">Edit</div>
+            </ons-col>
+
+          </ons-row>
+        </ons-list-item></ons-list>
+
+        <ons-list style="border-top: 0;">
+          <ons-list-item modifier="chevron tappable">
+            <div class="prop-desc">
+              <ons-icon icon="fa-map-marker"></ons-icon>
+              Thái Bình
+            </div>
+          </ons-list-item>
+
+          <ons-list-item modifier="chevron tappable">
+            <div class="prop-desc">
+              <ons-icon icon="fa-mobile"></ons-icon>
+              0960137941
+            </div>
+          </ons-list-item>
+
+          <ons-list-item modifier="chevron tappable">
+            <div class="prop-desc">
+              <ons-icon icon="ion-social-google-outline"></ons-icon>
+              hiep1996@gmail.com
+            </div>
+          </ons-list-item>
+
+        </ons-list>
+
+      </ons-page>
+  </ons-template>
+  <!-- end profile.html -->
 
   <script src="js/controllers/ListTodoController.js"></script>
   <!-- <script src="js/controllers/NewTodoController.js"></script> -->
